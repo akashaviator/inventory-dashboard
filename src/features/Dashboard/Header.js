@@ -1,9 +1,7 @@
 import { Box, Switch, Typography } from "@mui/material"
 import LogoutIcon from "@mui/icons-material/Logout"
-import { useEffect } from "react"
 
 export default function Header({ checked, setIsUserView }) {
-  useEffect(() => console.log(checked), [checked])
   return (
     <Box
       sx={{

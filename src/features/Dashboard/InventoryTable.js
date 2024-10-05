@@ -18,7 +18,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility"
 import { deleteItem, disableItem } from "./inventorySlice"
 import { useDispatch } from "react-redux"
 
-export default function InventoryTable({ data }) {
+export default function InventoryTable({ products }) {
   const dispatch = useDispatch()
 
   const handleAction = (event, row) => {
@@ -30,11 +30,9 @@ export default function InventoryTable({ data }) {
         console.log("edit logic here")
         break
       case "visibility":
-        console.log("disabling")
         dispatch(disableItem(row))
         break
       case "delete":
-        console.log("deleting")
         dispatch(deleteItem(row))
         break
       default:
@@ -43,11 +41,8 @@ export default function InventoryTable({ data }) {
   }
 
   return (
-    <Box sx={{ mt: 10 }}>
-      <Typography align="left" fontSize={42}>
-        Inventory stats
-      </Typography>
-      <TableContainer component={Paper} sx={{ mt: 4 }}>
+    <Box sx={{ mt: 2 }}>
+      <TableContainer component={Paper} sx={{ mt: 4, borderRadius: 2 }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -72,7 +67,7 @@ export default function InventoryTable({ data }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.items.map((row) => (
+            {products.map((row) => (
               <TableRow
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

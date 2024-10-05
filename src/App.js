@@ -28,6 +28,9 @@ const darkTheme = createTheme({
       secondary: "#b0bec5",
     },
   },
+  typography: {
+    fontFamily: "Roboto, sans-serif",
+  },
 })
 
 function App() {

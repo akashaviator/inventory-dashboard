@@ -3,7 +3,7 @@ import inventoryReducer from "./features/Dashboard/inventorySlice"
 
 const store = configureStore({
   reducer: {
-    items: inventoryReducer,
+    inventory: inventoryReducer,
   },
 })
 
