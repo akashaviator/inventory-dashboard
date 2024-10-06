@@ -1,6 +1,6 @@
-import { Box, Card, CardContent, Grid2, Stack, Typography } from "@mui/material"
+import { Card, CardContent, Grid2, Stack, Typography } from "@mui/material"
 
-export default function Stat({ label, icon, value }) {
+const Stat = ({ label, icon, value }) => {
   return (
     <Card
       sx={{
@@ -27,3 +27,4 @@ export default function Stat({ label, icon, value }) {
     </Card>
   )
 }
+export default Stat

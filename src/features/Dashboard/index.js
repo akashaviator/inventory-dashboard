@@ -1,20 +1,29 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import axios from "axios"
 import { Box, Stack, Typography } from "@mui/material"
-import InventoryTable from "./InventoryTable"
+import InventoryTable from "../../components/InventoryTable"
 import Header from "./Header"
 import { setItems } from "./inventorySlice"
 import { useDispatch, useSelector } from "react-redux"
-import Stat from "./Stat"
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
-import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange"
-import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart"
-import CategoryIcon from "@mui/icons-material/Category"
+import EditProduct from "../../components/EditProduct"
+import Stats from "../../components/Stats"
 
 export default function BasicTable() {
   const inventory = useSelector((state) => state.inventory)
   const [isUserView, setIsUserView] = useState(false)
   const dispatch = useDispatch()
+  const [showModal, setShowModal] = useState(false)
+  const editProduct = useRef(null)
+
+  const openEditModal = (row) => {
+    console.log("opening")
+    editProduct.current = row
+    setShowModal(true)
+  }
+  const closeEditModal = () => {
+    editProduct.current = null
+    setShowModal(false)
+  }
 
   useEffect(() => {
     axios
@@ -28,33 +37,22 @@ export default function BasicTable() {
   return (
     <Box sx={{ width: "60vw" }}>
       <Header checked={isUserView} setIsUserView={setIsUserView} />
-
       <Typography align="left" fontSize={42}>
         Inventory stats
       </Typography>
-      <Stack direction="row" justifyContent="space-between" mt={2}>
-        <Stat
-          icon={<ShoppingCartIcon />}
-          label="Total Products"
-          value={inventory.totalProducts}
+      <Stats inventory={inventory} />
+      <InventoryTable
+        products={inventory.products}
+        disableActions={isUserView}
+        openEditModal={openEditModal}
+      />
+      {showModal ? (
+        <EditProduct
+          product={editProduct.current}
+          showModal={showModal}
+          onClose={closeEditModal}
         />
-        <Stat
-          icon={<CurrencyExchangeIcon />}
-          label="Total Store Value"
-          value={inventory.totalValue}
-        />
-        <Stat
-          icon={<RemoveShoppingCartIcon />}
-          label="Out Of Stock"
-          value={inventory.outOfStock}
-        />
-        <Stat
-          icon={<CategoryIcon />}
-          label="No. Of Categories"
-          value={inventory.noOfCategories}
-        />
-      </Stack>
-      <InventoryTable products={inventory.products} />
+      ) : null}
     </Box>
   )
 }

@@ -9,10 +9,30 @@ import CssBaseline from "@mui/material/CssBaseline"
 import Box from "@mui/material/Box"
 
 const darkTheme = createTheme({
+  components: {
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#3f413c",
+          border: "1px solid #3f413c",
+          paddingLeft: "10px",
+          paddingRight: "10px",
+          borderRadius: "10px",
+          fontSize: "12px",
+          "&::before": {
+            borderBottom: "none !important",
+          },
+          "&::after": {
+            borderBottom: "none !important",
+          },
+        },
+      },
+    },
+  },
   palette: {
     mode: "dark",
     primary: {
-      main: "#90caf9",
+      main: "#cde365",
       contrastText: "#ffffff",
     },
     secondary: {

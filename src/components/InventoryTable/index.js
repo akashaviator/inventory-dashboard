@@ -9,25 +9,28 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material"
-import StyledChip from "./StyledChip"
+import StyledChip from "../StyledChip"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ModeEditIcon from "@mui/icons-material/ModeEdit"
 import VisibilityIcon from "@mui/icons-material/Visibility"
-import { deleteItem, disableItem } from "./inventorySlice"
+import {
+  deleteItem,
+  disableItem,
+} from "../../features/Dashboard/inventorySlice"
 import { useDispatch } from "react-redux"
+import { dark } from "@mui/material/styles/createPalette"
 
-export default function InventoryTable({ products }) {
+const InventoryTable = ({ products, disableActions, openEditModal }) => {
   const dispatch = useDispatch()
 
   const handleAction = (event, row) => {
     const action = event.target.closest("button")?.getAttribute("data-action")
-
     if (!action) return
     switch (action) {
       case "edit":
-        console.log("edit logic here")
+        console.log("edit")
+        openEditModal(row)
         break
       case "visibility":
         dispatch(disableItem(row))
@@ -70,7 +73,10 @@ export default function InventoryTable({ products }) {
             {products.map((row) => (
               <TableRow
                 key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                sx={{
+                  "&:last-child td, &:last-child th": { border: 0 },
+                  bgcolor: row.disabled ? dark.background.default : null,
+                }}
                 onClick={(event) => handleAction(event, row)}
               >
                 <TableCell align="left">{row.name}</TableCell>
@@ -80,19 +86,31 @@ export default function InventoryTable({ products }) {
                 <TableCell align="center">{row.value}</TableCell>
                 <TableCell align="center">
                   <Stack direction="row" justifyContent="center">
-                    <IconButton data-action="edit" size="small">
+                    <IconButton
+                      data-action="edit"
+                      size="small"
+                      disabled={disableActions || row.disabled}
+                    >
                       <ModeEditIcon
                         fontSize="inherit"
                         sx={{ color: "#377e22" }}
                       />
                     </IconButton>
-                    <IconButton data-action="visibility" size="small">
+                    <IconButton
+                      data-action="visibility"
+                      size="small"
+                      disabled={disableActions}
+                    >
                       <VisibilityIcon
                         fontSize="inherit"
                         sx={{ color: "#c597d5" }}
                       />
                     </IconButton>
-                    <IconButton data-action="delete" size="small">
+                    <IconButton
+                      data-action="delete"
+                      size="small"
+                      disabled={disableActions}
+                    >
                       <DeleteIcon fontSize="inherit" color="error" />
                     </IconButton>
                   </Stack>
@@ -105,3 +123,5 @@ export default function InventoryTable({ products }) {
     </Box>
   )
 }
+
+export default InventoryTable

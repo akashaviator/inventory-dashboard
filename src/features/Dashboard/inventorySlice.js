@@ -14,41 +14,44 @@ const inventorySlice = createSlice({
   initialState,
   reducers: {
     setItems(state, action) {
-      console.log("setting", action)
       const stats = calculateInventoryStats(action.payload)
       return { ...stats, products: action.payload }
     },
     deleteItem(state, action) {
-      console.log("deleting in", action)
       const products = state.products.filter(
         (item) => item.name !== action.payload.name
       )
-      console.log("new state", products)
       const stats = calculateInventoryStats(products)
-
       return { ...stats, products: products }
     },
     disableItem(state, action) {
       const products = state.products.map((item) => {
+        const product = { ...item }
         if (item.name === action.payload.name) {
-          item.disabled = !item.disabled
+          product.disabled = !item.disabled
         }
-        return item
+        return product
       })
-      const newState = { ...state, products: products }
-      return newState
+
+      return { ...state, products: products }
     },
     editItem(state, action) {
       const { name, newData } = action.payload
+      console.log("payload", action)
       const products = state.products.map((item) => {
+        console.log("editing item", item)
+        let editedProduct = { ...item }
         if (item.name === name) {
-          Object.assign(item, newData)
+          editedProduct = Object.assign(editedProduct, newData)
         }
-        return item
+        console.log(editedProduct)
+        return editedProduct
       })
       const stats = calculateInventoryStats(products)
 
-      return { ...stats, products: products }
+      const newState = { ...stats, products: products }
+      console.log("new", newState)
+      return newState
     },
   },
 })
