@@ -25,7 +25,7 @@ const Header = ({ checked, setIsUserView }) => {
         </Typography>
         <Switch
           size="small"
-          color="info"
+          color="primary"
           checked={checked}
           onClick={() => setIsUserView(!checked)}
           inputProps={{ "aria-label": "controlled" }}
