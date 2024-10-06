@@ -33,6 +33,7 @@ const EditProduct = ({ product, showModal, onClose }) => {
     )
     onClose()
   }
+
   const handleChange = (e) => {
     setFormData({
       ...formData,

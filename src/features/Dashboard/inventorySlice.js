@@ -32,7 +32,6 @@ const inventorySlice = createSlice({
         }
         return product
       })
-
       return { ...state, products: products }
     },
     editItem(state, action) {

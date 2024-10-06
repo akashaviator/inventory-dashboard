@@ -1,8 +1,6 @@
 import {
   Box,
-  IconButton,
   Paper,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -11,15 +9,12 @@ import {
   TableRow,
 } from "@mui/material"
 import StyledChip from "../StyledChip"
-import DeleteIcon from "@mui/icons-material/Delete"
-import ModeEditIcon from "@mui/icons-material/ModeEdit"
-import VisibilityIcon from "@mui/icons-material/Visibility"
 import {
   deleteItem,
   disableItem,
 } from "../../features/Dashboard/inventorySlice"
 import { useDispatch } from "react-redux"
-import { dark } from "@mui/material/styles/createPalette"
+import Row from "./Row"
 
 const InventoryTable = ({ products, disableActions, openEditModal }) => {
   const dispatch = useDispatch()
@@ -29,7 +24,6 @@ const InventoryTable = ({ products, disableActions, openEditModal }) => {
     if (!action) return
     switch (action) {
       case "edit":
-        console.log("edit")
         openEditModal(row)
         break
       case "visibility":
@@ -37,8 +31,6 @@ const InventoryTable = ({ products, disableActions, openEditModal }) => {
         break
       case "delete":
         dispatch(deleteItem(row))
-        break
-      default:
         break
     }
   }
@@ -71,51 +63,11 @@ const InventoryTable = ({ products, disableActions, openEditModal }) => {
           </TableHead>
           <TableBody>
             {products.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                  bgcolor: row.disabled ? dark.background.default : null,
-                }}
-                onClick={(event) => handleAction(event, row)}
-              >
-                <TableCell align="left">{row.name}</TableCell>
-                <TableCell align="center">{row.category}</TableCell>
-                <TableCell align="center">{row.price}</TableCell>
-                <TableCell align="center">{row.quantity}</TableCell>
-                <TableCell align="center">{row.value}</TableCell>
-                <TableCell align="center">
-                  <Stack direction="row" justifyContent="center">
-                    <IconButton
-                      data-action="edit"
-                      size="small"
-                      disabled={disableActions || row.disabled}
-                    >
-                      <ModeEditIcon
-                        fontSize="inherit"
-                        sx={{ color: "#377e22" }}
-                      />
-                    </IconButton>
-                    <IconButton
-                      data-action="visibility"
-                      size="small"
-                      disabled={disableActions}
-                    >
-                      <VisibilityIcon
-                        fontSize="inherit"
-                        sx={{ color: "#c597d5" }}
-                      />
-                    </IconButton>
-                    <IconButton
-                      data-action="delete"
-                      size="small"
-                      disabled={disableActions}
-                    >
-                      <DeleteIcon fontSize="inherit" color="error" />
-                    </IconButton>
-                  </Stack>
-                </TableCell>
-              </TableRow>
+              <Row
+                data={row}
+                disableActions={disableActions}
+                handleAction={handleAction}
+              />
             ))}
           </TableBody>
         </Table>

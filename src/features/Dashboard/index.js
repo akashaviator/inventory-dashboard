@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import axios from "axios"
-import { Box, Stack, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import InventoryTable from "../../components/InventoryTable"
 import Header from "./Header"
 import { setItems } from "./inventorySlice"
@@ -27,7 +27,7 @@ export default function BasicTable() {
 
   useEffect(() => {
     axios
-      .get("https://dev-0tf0hinghgjl39z.api.raw-labs.com/inventory")
+      .get(process.env.REACT_APP_API_URL)
       .then((res) => {
         dispatch(setItems(res.data))
       })

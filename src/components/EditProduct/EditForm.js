@@ -1,67 +1,36 @@
-import { Grid2 as Grid, TextField } from "@mui/material"
+import { Grid2 as Grid } from "@mui/material"
+import ProductField from "./ProductField"
 
 const EditForm = ({ formData, handleChange }) => {
   return (
     <>
       <Grid container spacing={2}>
         <Grid item size={6}>
-          <TextField
-            variant="standard"
+          <ProductField
             label="Category"
-            name="category"
-            value={formData.category}
             onChange={handleChange}
-            fullWidth
-            slotProps={{
-              inputLabel: {
-                shrink: true,
-              },
-            }}
+            value={formData.category}
           />
         </Grid>
         <Grid item size={6}>
-          <TextField
-            variant="standard"
+          <ProductField
             label="Price"
-            name="price"
             value={formData.price}
             onChange={handleChange}
-            fullWidth
-            slotProps={{
-              inputLabel: {
-                shrink: true,
-              },
-            }}
           />
         </Grid>
         <Grid item size={6}>
-          <TextField
-            variant="standard"
+          <ProductField
             label="Quantity"
-            name="quantity"
             value={formData.quantity}
             onChange={handleChange}
-            fullWidth
-            slotProps={{
-              inputLabel: {
-                shrink: true,
-              },
-            }}
           />
         </Grid>
         <Grid item size={6}>
-          <TextField
-            variant="standard"
+          <ProductField
             label="Value"
-            name="value"
             value={formData.value}
             onChange={handleChange}
-            fullWidth
-            slotProps={{
-              inputLabel: {
-                shrink: true,
-              },
-            }}
           />
         </Grid>
       </Grid>
