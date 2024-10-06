@@ -1,7 +1,7 @@
 import { Box, Switch, Typography } from "@mui/material"
 import LogoutIcon from "@mui/icons-material/Logout"
 
-export default function Header({ checked, setIsUserView }) {
+const Header = ({ checked, setIsUserView }) => {
   return (
     <Box
       sx={{
@@ -38,3 +38,4 @@ export default function Header({ checked, setIsUserView }) {
     </Box>
   )
 }
+export default Header

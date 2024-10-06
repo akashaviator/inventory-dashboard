@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux"
 import EditProduct from "../../components/EditProduct"
 import Stats from "../../components/Stats"
 
-export default function BasicTable() {
+const Dashboard = () => {
   const inventory = useSelector((state) => state.inventory)
   const [isUserView, setIsUserView] = useState(false)
   const dispatch = useDispatch()
@@ -56,3 +56,4 @@ export default function BasicTable() {
     </Box>
   )
 }
+export default Dashboard
